@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    img {
+        width: 15vh;
+    }
+
+    #myTable {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 80%;
+        margin-bottom: 5%;
+        margin: auto;
+        text-align: center;
+    }
+
+    #myTable td,
+    #myTable th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #myTable tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #myTable th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: hsl(226, 13%, 43%);
+        color: white;
+
+    }
+
+    #myTable tr:hover {
+        cursor: pointer;
+    }
+
+    #visitor {
+        text-align: center;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: hsl(226, 13%, 43%);
+        color: white;
+        margin-top: 5px;
+    }
+
+    #buttonSec {
+        margin-left: 10%;
+        margin-bottom: 1%;
+        margin-top: 1%;
+    }
+
+    .button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        -webkit-transition-duration: 0.4s;
+        /* Safari */
+        transition-duration: 0.4s;
+        margin: 5px;
+    }
+
+    .button:hover {
+        box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    header {
+
+        padding: 20px;
+        text-align: center;
+        background: hsl(226, 13%, 43%);
+        color: white;
+        font-size: 50px;
+
+    }
+</style>
+
+<body>
+    <header>
+        Animal World
+    </header>
+    <div id="buttonSec">
+        <button onclick="sortTable1()" class="button">Sort by ID</button>
+        <button onclick="sortTable2()" class="button">Sort by Name</button>
+        <button onclick="sortTable3()" class="button">Sort by Life</button>
+    </div>
+
+    <table id="myTable">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Life expectancy</th>
+            <th>Photo</th>
+        </tr>
+        <tr onclick='location.href= "https://en.wikipedia.org/wiki/Tiger"'>
+            <td>3</td>
+            <td>Tiger</td>
+            <td>10</td>
+            <td><img
+                    src="https://i.guim.co.uk/img/media/c0e411f5b4c387cd8b275f0794a3618210c5b216/0_339_5081_3048/master/5081.jpg?width=620&quality=85&auto=format&fit=max&s=a314b49c9594a8c35e2e5f6ef4cccd4c">
+            </td>
+        </tr>
+        <tr onClick='location.href= "https://en.wikipedia.org/wiki/Lion"'>
+            <td>1</td>
+            <td>Lion</td>
+            <td>8</td>
+            <td><img src="https://cdn.mos.cms.futurecdn.net/J9KeYkEZf4HHD5LRGf799N-1024-80.jpg.webp"></td>
+        </tr>
+        <tr onClick='location.href= "https://en.wikipedia.org/wiki/Elephant"'>
+            <td>2</td>
+            <td>Elephant</td>
+            <td>50</td>
+            <td><img
+                    src="https://www.iucn.org/sites/dev/files/styles/850x500_no_menu_article/public/content/images/2021/african_savanna_elephant_annabel_wynyard.jpeg?itok=CnU_7qyV">
+            </td>
+        </tr>
+        <tr onClick='location.href= "C:\Users\Laptop\Downloads"'>
+            <td>5</td>
+            <td>Panther</td>
+            <td>16</td>
+            <td><img
+                    src="https://images.indulgexpress.com/uploads/user/imagelibrary/2020/2/28/original/TheRealBlackPantherAllPicsShaazJung.JPG?w=700&dpr=1.1">
+            </td>
+        </tr>
+        <tr onClick='location.href= "https://en.wikipedia.org/wiki/Jaguar"'>
+            <td>4</td>
+            <td>Jaguar</td>
+            <td>9</td>
+            <td><img src="https://cdn.pixabay.com/photo/2016/10/10/00/09/jaguar-1727406_960_720.jpg"></td>
+        </tr>
+
+    </table>
+
+    <div id="visitor">
+        <h3> Visitor count <span id="count">0</span></h3>
+
+    </div>
+    <script>
+
+        const countEl = document.getElementById('count');
+        updateVistiCount();
+        function updateVistiCount() {
+
+            fetch('https://api.countapi.xyz/update/projec-ruchi/foodpanda/?amount=1')
+                .then(res => res.json())
+                .then(res => {
+                    countEl.innerHTML = res.value;
+                });
+        }
+
+        function sortTable1() {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById("myTable");
+            switching = true;
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("TD")[0];
+                    y = rows[i + 1].getElementsByTagName("TD")[0];
+                    if (Number(x.innerHTML) > Number(y.innerHTML)) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
+        }
+
+
+        function sortTable2() {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById("myTable");
+            switching = true;
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("TD")[1];
+                    y = rows[i + 1].getElementsByTagName("TD")[1];
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
+        }
+        function sortTable3() {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById("myTable");
+            switching = true;
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("TD")[2];
+                    y = rows[i + 1].getElementsByTagName("TD")[2];
+                    if (Number(x.innerHTML) > Number(y.innerHTML)) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>
